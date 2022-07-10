@@ -8,12 +8,12 @@ from datetime import datetime
 
 
 class MakeDeclarationPdf:
-    def __init__(self, nameToSave, signature, signatureImg, studentName, studentRg, studentCpf, cpfOwner):
+    def __init__(self, pathToSave, signature, signatureImg, studentName, studentRg, studentCpf, cpfOwner):
         months = {1: 'Janeiro', 2: 'Fevereiro', 3: "Março", 4: "Abril", 5: "Maio", 6: "Junho",
                   7: "Julho", 8: "Agosto", 9: "Setembro", 10: "Outubro", 11: "Novembro", 12: "Dezembro"}
         currentDate = datetime.now()
         self.dateNow = f"{currentDate.day} de {months[currentDate.month]} de {currentDate.year}"
-        self.filename = str(nameToSave)
+        self.filenameToSaveInPath = str(pathToSave)
         self.documentTitle = str("declaracao")
         self.signature = str(signature)
         self.signatureImg = str(signatureImg)
@@ -47,7 +47,7 @@ class MakeDeclarationPdf:
 
         width, heigth = A4
 
-        pdf = canvas.Canvas(self.filename, pagesize=A4)
+        pdf = canvas.Canvas(self.filenameToSaveInPath, pagesize=A4)
         pdf.setTitle(self.documentTitle)
 
         p1.wrapOn(pdf, 510, 50)
@@ -94,3 +94,5 @@ class MakeDeclarationPdf:
                             85, preserveAspectRatio=True)
 
         pdf.save()
+
+        return True
